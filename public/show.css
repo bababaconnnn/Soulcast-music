@@ -1,0 +1,102 @@
+.card22 {
+    display: block;
+    margin: auto;
+    border-radius: 1.5rem;
+    position:relative;
+    background-color: rgb(255, 250, 244);
+}
+.card-body {
+    display: block;
+    margin: auto;
+    /* width: 30rem; */
+    /* margin-top: 0.6rem;
+    margin-bottom: 0.6rem; */
+}
+.form-label {
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+}
+.btn-signup {
+    border: 0;
+    border-radius: 60px;
+    height: 40px;
+    /* width: 250px; */
+    background-color: #ee5c25;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #fae62d;
+}
+.btn-create {
+    border: 3px solid #ee5c25;
+    border-radius: 60px;
+    height: 40px;
+    /* width: 250px; */
+    background-color: #ee5a2500;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #ee5c25;
+}
+@font-face {
+    font-family: "Draft";
+    src: url("/font/DraftE-Bold.ttf") format("TrueType");
+}
+.card-title {
+    font-family: 'Draft';
+    font-size: 35px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+option,select,input,textarea {
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 14px;
+}
+#a {
+    margin-top: 80px;
+}
+.form-control,.form-select {
+    border-color: #2e3f5c;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.formFile {
+    background-color: #2e3f5c;
+}
+#card2 {
+    margin-top: 4.95%;
+}
+.input-lyric {
+    height: 280px;
+}
+input[type=file]::file-selector-button {
+    background-color: #2e3f5c;
+    color: #fff7db;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 10px;
+}
+.abab {
+    display: none;
+}
+.alert {
+    /* position: relative; */
+    z-index:1;
+
+}
+.profile-pic img {
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    box-shadow: 0px 0px 5px 0px #c1c1c1;
+    cursor: pointer;
+} 
+.audio {
+    width: 220px;
+    height: 30px;
+}
+.modal-content {
+    border-radius: 20px;
+}

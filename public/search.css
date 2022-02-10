@@ -1,0 +1,30 @@
+@font-face {
+    font-family: "Draft";
+    src: url("/font/DraftE-Bold.ttf") format("TrueType");
+}
+.following {
+    font-family: "Draft";
+    color: rgb(255, 255, 255);
+}
+.title-search,.cate-title {
+    font-family: 'Draft';
+    color: rgb(255, 255, 255);
+}
+.desc, .lis {
+    font-family: 'Barlow', sans-serif;
+}
+.search-box {
+    background-color: #1fc58e; 
+    border-radius: 10px;
+    padding: 2.5%;
+    transition: all ease 0.4s;
+}
+.search-box:hover {
+    box-shadow: none;
+    transform: scale(1.05) translateY(2px);
+}
+.name-artist {
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.692);
+    font-size: medium;
+}

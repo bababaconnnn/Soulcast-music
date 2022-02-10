@@ -1,0 +1,71 @@
+<%- include('partials/headerAdmin.ejs') %>
+<link rel="stylesheet" href="/search.css">
+<link rel="stylesheet" href="/homeUser.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    
+<div class="container d-flex justify-content-center col-12 mt-2">
+    <div class="col-5">
+        <div class="shadow" style="background-color: rgb(255, 255, 255); border-radius: 20px;">
+            <div class="container">
+                <div class="card-body">
+                        <h5 class="card-title text-uppercase pt-2">add new Album</h5>  
+                        <form class="row g-3 mt-1" action="/admin/add/album" method="POST" enctype="multipart/form-data">
+                                <div class="row col-12">
+                                    <div class="col-12">
+                                        <label for="inputAddress" class="form-label"><strong>Album's Name</strong></label>
+                                        <input type="text" class="form-control" name="newAlbum[name]" placeholder="Name of Album" required>
+                                    </div>
+                                    <div class="col-12 pt-3">
+                                        <label for="formFile" class="form-label"><strong>Artist :</strong></label>
+                                        <select id="select-testing" class="selectpicker" data-live-search="true" title="Select Artist" name="newAlbum[artist]" required>
+                                            <option value="" selected>Choose Artist</option>
+                                          <% artist.forEach(function(artist){ %>
+                                            <option value="<%= artist.artist %>"><%= artist.artist %></option>
+                                          <% }); %>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 pt-3">
+                                        <label for="formFile" class="form-label"><strong>Album's image</strong></label>
+                                        <input type="file" class="form-control px-3 py-2" name="image" required accept="image/*" id="imgInp" required>
+                                    </div>
+                                </div>
+                            <div>
+                                <img id="blah" width="30%" class="pt-2">
+                            </div>
+                            
+                            <div class="">
+                                <button type="submit" class="btn-signup col-4 my-4 shadow-sm" style="background-color: #1fc58e; color: rgb(17, 19, 18);">ADD NEW ALBUM</button>
+                            </div>
+                        </form>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+  <script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#imgInp").change(function(){
+        readURL(this);
+    });
+</script>
+
+<%- include('partials/footerAdmin.ejs') %>

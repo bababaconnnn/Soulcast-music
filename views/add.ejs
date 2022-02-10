@@ -1,0 +1,124 @@
+<%- include('partials/headerAdmin.ejs') %>
+<!-- <%- include('layout.ejs') %> -->
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+<div class="card col-10 shadow mt-2" id="card2">
+    <div class="container">
+    <div class="card-body col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 col-xxl-12">
+      <div class="container">
+        <h5 class="card-title text-uppercase">add new song</h5>  
+        <form class="row g-3 mt-1" action="/admin/add" method="POST" enctype="multipart/form-data">
+          <div class="d-flex">
+            <div class="row col-6">
+            <div class="col-12">
+              <label for="inputAddress" class="form-label"><strong>Song's Name</strong></label>
+              <input type="text" class="form-control" name="newReleaseSong[name]" required>
+            </div>
+            <div class="col-12 pt-3 search-art">
+                <label for="inputAddress2" class="form-label"><strong>Artist</strong></label>
+                <!-- <select class="mdb-select md-form" searchable="Search here.." required name="newReleaseSong[artist]">
+                  
+                  <% artist.forEach(function(artist){ %>
+                    <option value="<%= artist.artist %>"><%= artist.artist %></option>
+                  <% }); %>
+                </select> -->
+                <select id="select-testing" class="selectpicker" data-live-search="true" title="Select Artist" name="newReleaseSong[artist]">
+                    <option value="" selected>Choose Artist</option>
+                  <% artist.forEach(function(artist){ %>
+                    <option value="<%= artist.artist %>"><%= artist.artist %></option>
+                  <% }); %>
+                </select>
+                <!-- <input type="text" class="form-control" name="newReleaseSong[artist]" required> -->
+            </div>
+            <div class="col-6 pt-3">
+                <label for="formFile" class="form-label"><strong>Image single</strong></label>
+                <input type="file" class="form-control px-3 py-2" name="image" required accept="image/*" required>
+            </div>
+            <div class="col-6 pt-3">
+                <label for="formFile" class="form-label"><strong>Song (.mp3)</strong></label>
+                <input type="file" class="form-control px-3 py-2" name="songs"  accept='audio/*' required>
+                <label for="formFileDisabled" hidden></label>
+            </div>
+            <div class="col-12 pt-3">
+                <label for="inputAddress2" class="form-label"><strong>Release Date</strong></label>
+                <input type="date" class="form-control" name="newReleaseSong[releaseDate]" required>
+            </div>
+            <div class="d-flex pt-4">
+            <div class="pt-3 col-3">
+              <input class="form-check-input"  type="checkbox" value="album" id="defaultCheck1">
+              <label class="form-check-label form-label ps-2" for="defaultCheck1"><strong>Add to Album</strong></label>
+            </div>
+            <div class="col-9 pt-1 mt-2 album abab">
+              <!-- <label for="inputAddress2" class="form-label"><strong>Album</strong></label> -->
+              <input type="text" class="form-control" name="newReleaseSong[album]">
+            </div>              
+            </div> 
+                         
+            </div>
+          <div class="row col-6 ms-4">
+            <div class="col-12">
+              <label for="inputAddress2" class="form-label"><strong>Lyrics</strong></label>
+              <textarea type="text" class="form-control input-lyric" name="newReleaseSong[lyric]" required></textarea>
+            </div>
+            <div class="col-12 col-md-6 mt-4">
+              <label class="form-label"><strong>Category</strong></label>
+              <div class="d-flex form-label" style="font-size: 13.5px; font-weight: 500; color: rgba(0, 0, 0, 0.849);">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="newReleaseSong[category]" id="inlineRadio1" value="Pop">
+                <label class="form-check-label" for="inlineRadio1">Pop</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="newReleaseSong[category]" id="inlineRadio2" value="Rock">
+                <label class="form-check-label" for="inlineRadio2">Rock</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="newReleaseSong[category]" id="inlineRadio3" value="Indie">
+                <label class="form-check-label" for="inlineRadio3">Indie</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="newReleaseSong[category]" id="inlineRadio4" value="Dance">
+                <label class="form-check-label" for="inlineRadio4">Dance</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="newReleaseSong[category]" id="inlineRadio5" value="R&B/Soul">
+                <label class="form-check-label" for="inlineRadio5">R&B/Soul</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="newReleaseSong[category]" id="inlineRadio6" value="Hip-hop/Rap">
+                <label class="form-check-label" for="inlineRadio6">Hip-hop/Rap</label>
+              </div>
+            </div>
+            </div>
+          </div>
+          </div>
+
+            <div class="text-center">
+                <a aria-current="page" href="/soulcast"><button type="submit" class="btn-signup col-3 mt-3 shadow-sm" style="background-color: #1fc58e; color: rgb(17, 19, 18);">ADD SONG</button></a>
+            </div>
+          </form>
+      </div>
+    </div>
+    </div>
+</div>
+
+
+<!-- <div class="noise"></div> -->
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('input[type="checkbox"]').click(function() {
+          var inputValue = $(this).attr("value");
+          $("." + inputValue).toggle();
+      });
+  });
+  $(document).ready(function() {
+    $('#select-testing').selectpicker();
+});
+</script>
+
+<%- include('partials/footerAdmin.ejs') %>

@@ -1,0 +1,115 @@
+<link rel="stylesheet" href="/layout.css">
+<link rel="stylesheet" href="/searchBar.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<style>
+  html {
+  --card-color: #cacaca;
+  --text-color: #e1e1e1;
+}
+</style>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+        <% if(currentUser){ %>
+            <a class="navbar-brand" href="/soulcast"><img class="img-fluid" src="https://i.pinimg.com/originals/b7/c8/f0/b7c8f019bca3c9eb4e4775f9609f1372.png"></a>
+        <% }else{ %>
+          <a class="navbar-brand" href="/"><img class="img-fluid" src="https://i.pinimg.com/originals/b7/c8/f0/b7c8f019bca3c9eb4e4775f9609f1372.png"></a>
+        <% } %>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <% if(!currentUser){ %>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/" style="margin-left: 16px;"><strong class="hover">HOME</strong></a>
+              </li>
+            <% }else{ %>
+                <% if(currentUser.plan === 'Free'){ %>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/soulcast" style="margin-left: 16px;"><strong class="hover">HOME</strong></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/soulcast/premium" style="margin-left: 16px;"><strong class="hover">UPGRADE TO PREMIUM</strong></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/soulcast/favorite" style="margin-left: 16px;"><strong class="hover">LIKED SONGS</strong></a>
+                  </li>
+                  <li class="nav-item ms-5">
+                    <form class="search-form d-flex p-2 col-12" action="/soulcast/search" method="POST">
+                      <button type="submit" class="search-button ps-2">
+                        <svg class="submit-button">
+                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                        </svg>
+                      </button>
+                      <input type="search" value="" placeholder="Search" class="search-input ps-3" name="search" id="search22" onkeyup='searchLive()'>
+                    </form>
+                  </li>
+                  <% }else{ %>
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/soulcast" style="margin-left: 16px;"><strong class="hover">HOME</strong></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/soulcast/favorite" style="margin-left: 16px;"><strong class="hover">LIKED SONGS</strong></a>
+                    </li>
+                    <li class="nav-item ms-5">
+                      <form class="search-form d-flex p-2 col-12" action="/soulcast/search" method="POST">
+                        <button type="submit" class="search-button ps-2">
+                          <svg class="submit-button">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                          </svg>
+                        </button>
+                        <input type="search" value="" placeholder="Search Song and Artist" class="search-input ps-3" name="search" id="search22" onkeyup='searchLive()'>
+                      </form>
+                    </li>
+                    <% } %>
+            <% } %>
+            </ul>
+            <span class="navbar-text" style="color: white;">
+                <% if(!currentUser){ %>
+                    <a class="nav-link active" aria-current="page" href="/signup/new"><strong class="hover">SIGN UP</strong></a><p style="font-size: 30px;">|</p><a class="nav-link active" aria-current="page" href="/login"><strong class="hover">LOG IN</strong></a>
+                <% }else{ %>
+                  <% if(currentUser.plan === 'Free'){ %>
+                    <img src="<%= currentUser.profileImage %>" width="40px" height="40px" style="border-radius: 50%; object-fit: cover;"/><a class="nav-link active" aria-current="page" href="/user/<%= currentUser._id %>"><strong class="hover text-uppercase"><%= currentUser.username%></strong></a><a class="nav-link active" aria-current="page" href="/logout"><button class="logout hover2">LOG OUT</button></a>
+                  <% } else{ %>
+                    </i><img src="<%= currentUser.profileImage %>" width="40px" height="40px" style="border-radius: 50%; object-fit: cover;"/>
+                    <a class="nav-link active" aria-current="page" href="/user/<%= currentUser._id %>"></i><strong class="hover text-uppercase"><%= currentUser.username%></strong><i class="fad fa-gem ps-2" style="font-size: 20px; color: #ffc82f;"></i></a><a class="nav-link active" aria-current="page" href="/logout"><button class="logout hover2">LOG OUT</button></a>
+                  <% } %>
+                <% } %>
+                
+            </span>
+            
+          </div>
+        </div>
+    </nav>
+    
+</div>
+
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
+  <symbol id="search" viewBox="0 0 32 32">
+    <path d="M 19.5 3 C 14.26514 3 10 7.2651394 10 12.5 C 10 14.749977 10.810825 16.807458 12.125 18.4375 L 3.28125 27.28125 L 4.71875 28.71875 L 13.5625 19.875 C 15.192542 21.189175 17.250023 22 19.5 22 C 24.73486 22 29 17.73486 29 12.5 C 29 7.2651394 24.73486 3 19.5 3 z M 19.5 5 C 23.65398 5 27 8.3460198 27 12.5 C 27 16.65398 23.65398 20 19.5 20 C 15.34602 20 12 16.65398 12 12.5 C 12 8.3460198 15.34602 5 19.5 5 z" />
+  </symbol>
+</svg>
+
+<% if(error && error.length > 0){ %>
+  <div class="alert alert-danger col-9 mx-auto row mt-2" role="alert">
+    <div class="col">
+      <strong>Oh snap! </strong><%= error %>
+    </div>
+    <div class="col text-end">
+      <button type="button" class="btn-close text-end" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div> 
+<% } %>
+<% if(success && success.length > 0){ %>
+  <div class="alert alert-success col-9 mx-auto row mt-2" role="alert">
+    <div class="col">
+      <strong>Well done! </strong><%= success %>
+    </div>
+    <div class="col text-end">
+      <button type="button" class="btn-close text-end" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div> 
+<% } %>
+
+<%- include('partials/footer.ejs') %>

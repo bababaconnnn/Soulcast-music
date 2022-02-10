@@ -1,0 +1,188 @@
+<%- include('partials/header.ejs') %>
+
+<%- include('layout.ejs') %>
+<script src="https://kit.fontawesome.com/bce85edea6.js" crossorigin="anonymous"></script>
+
+<div class="noise"></div>
+<div class="container">
+    <div class="text-center" style="margin-top: 30px;">
+        <img class="img-fluid col-11" src="https://i.pinimg.com/originals/ce/ab/a8/ceaba8c91b53ba31156307edcf491e29.png">
+    </div>
+    <a class="nav-link active" aria-current="page" href="/Soulcast/TopSong"><button type="button" class="listen col-3 col-sm-4 col-md-2 col-lg-2 col-xxl-2 col-xl-2 none-click">LISTEN NOW</button></a>
+</div>
+
+<div class="container">
+    <div class="col-11 bg-newRelease">
+        <img class="img-fluid col-4" src="https://i.pinimg.com/originals/e9/19/5b/e9195b60753543306303415644f2c4e2.png">
+        <div class="col-12 line"></div>
+
+            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2  row-cols-lg-3 row-cols-xl-4 row-cols-xxl-4 g-5" >
+            <% song.forEach(function(song){ %>
+                <div >
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="position-relative">
+                            <img class="pics-song img-fluid shadow" src="<%= song.image %>" width="225px">
+                            <p class='position-absolute top-0 end-0'>
+                                <% var i = 0; %>
+                                <% if(currentUser.favorite == ''){ %>
+                                    <form action="/soulcast/play/fav/<%= currentUser._id %>" method="POST">
+                                        <input name="fav" value="<%= song._id %>" hidden>
+                                        <div class="heart">
+                                            <button type="submit" class="bg-transparent border-0 position-absolute top-0 end-0 none-click"><i class="fas fa-heart favorite active p-2" aria-hidden="true" style="color: #ffffffa8;"></i></button>
+                                        </div>
+                                    </form>
+                                <% } else { %>
+                                    <% currentUser.favorite.forEach(function(fav2){ %>
+                                        <% if(fav2.equals(song._id)){ %>
+                                            <% i++; %>    
+                                        <% } %>
+                                    <% }); %>
+                                    <% if(i>0){%>
+                                        <form action="/soulcast/play/fav/delete/<%= currentUser._id %>" method="POST">
+                                            <input name="delete" value="<%= song._id %>" hidden>
+                                            <div class="heart">
+                                                <button type="submit" class="bg-transparent border-0 position-absolute top-0 end-0 none-click"><i class="fas fa-heart favorite active p-2" aria-hidden="true" style="color: #920606;"></i></button>
+                                            </div>
+                                        </form>
+                                    <% } else{ %>
+                                        <form action="/soulcast/play/fav/<%= currentUser._id %>" method="POST">
+                                            <input name="fav" value="<%= song._id %>" hidden>
+                                            <div class="heart">
+                                                <button type="submit" class="bg-transparent border-0 position-absolute top-0 end-0 none-click"><i class="fas fa-heart favorite active p-2" aria-hidden="true" style="color: #ffffffa8;"></i></button>
+                                            </div>
+                                        </form>
+                                    <% } %>
+                                <% } %>
+                            </p>
+                            </div>
+                            <div class="desc-song">
+                                <div>
+                                    <p class="card-text songs"><%= song.name %></p>
+                                    <p class="card-text artist"><%= song.artist %></p>
+                                </div>
+                                <div class="position-relative">
+                                    <!-- <a href="/soulcast/play/<%= song._id %>"> -->
+                                        <button type="button" data-switch="<%= song._id %>" class="btn btn-sm btn-outline-secondary playSong position-absolute bottom-0 end-0 play col-10 none-click">PLAY</button>
+                                    <!-- </a>  -->
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+            </div>
+            
+            <img class="img-fluid col-8 mt-5" src="/images/Cate.png">
+            <div class="col-12 line mt-3"></div>
+
+            <div class="app col-12 col-sm-12 col-md-12 col-xl-12 col-xxl-12">
+                <ul class="hs full no-scrollbar">
+                    <li class=""><a href='/soulcast/category/R&B%2FSoul'><img class="img-fluid card2 shadow mb-5" src="/images/Soul.png"></a></li>
+                    <li class=""><a href='/soulcast/category/Dance'><img class="img-fluid card2 shadow mb-5" src="/images/Dance.png"></a></li>
+                    <li class=""><a href='/soulcast/category/Rock'><img class="img-fluid card2 shadow mb-5" src="/images/Rock.png"></a></li>
+                    <li class=""><a href='/soulcast/category/Indie'><img class="img-fluid card2 shadow mb-5" src="/images/Indie.png"></a></li>
+                    <li class=""><a href='/soulcast/category/Hip-hop%2FRap'><img class="img-fluid card2 shadow mb-5" src="/images/Rap.png"></a></li>
+                    <li class=""><a href='/soulcast/category/Pop'><img class="img-fluid card2 shadow mb-5" src="/images/Pop.png"></a></li>
+                </ul>
+            </div>
+
+            <!-- <div class="container">
+                <div class="d-flex justify-content-center">
+                <div class="mt-3 d-flex position-relative col-3">
+                    <i class="fas fa-bahai position-absolute top-50 start-0 translate-middle"></i><p class="ps-4 cate text-uppercase o">pop</p>
+                </div>
+                <div class="mt-3 d-flex position-relative col-3">
+                    <i class="fas fa-bahai position-absolute top-50 start-0 translate-middle"></i><p class="ps-4 cate text-uppercase o">Rock</p>
+                </div>
+                <div class="mt-3 d-flex position-relative col-3">
+                    <i class="fas fa-bahai position-absolute top-50 start-0 translate-middle"></i><p class="ps-4 cate text-uppercase o">indie</p>
+                </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                <div class="mt-3 d-flex position-relative col-3">
+                    <i class="fas fa-bahai position-absolute top-50 start-0 translate-middle"></i><p class="ps-4 cate text-uppercase y">dance</p>
+                </div>
+                <div class="mt-3 d-flex position-relative col-4">
+                    <i class="fas fa-bahai position-absolute top-50 start-0 translate-middle"></i><p class="ps-4 cate text-uppercase y">R&B/soul</p>
+                </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                <div class="mt-3 d-flex position-relative col-6">
+                    <i class="fas fa-bahai position-absolute top-50 start-0 translate-middle"></i><p class="ps-4 cate text-uppercase l">Hip-hop/rap</p>
+                </div>                    
+                </div>
+
+            </div> -->
+
+
+            <!-- <div class="album py-4 bg-light text-center">
+                <div class="container">
+                  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+                      
+                    <div class="col">
+                      <img class="card shadow-sm mx-auto" src="/images/ss.jpg">
+                    </div>
+
+                    <div class="col">
+                        <img class="card shadow-sm mx-auto" src="/images/ss.jpg">
+                    </div>
+
+                    <div class="col">
+                        <img class="card shadow-sm mx-auto" src="/images/ss.jpg">
+                    </div>
+            
+                    <div class="col">
+                        <img class="card shadow-sm mx-auto" src="/images/ss.jpg">
+                    </div>
+
+                    <div class="col">
+                        <img class="card shadow-sm mx-auto" src="/images/ss.jpg">
+                    </div>
+
+                    <div class="col">
+                        <img class="card shadow-sm mx-auto" src="/images/ss.jpg">
+                    </div>
+
+                  </div>
+                </div>
+              </div> -->
+            
+
+
+    </div>
+</div>
+
+<!-- <div id="aplayer"></div> -->
+
+<%- include('footer.ejs') %>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+
+<script>
+   
+    $(".playSong").on('click', function(onClick){
+        var dataSwitchId = $(this).attr('data-switch')
+        console.log(dataSwitchId);
+        ap.list.switch(dataSwitchId);
+        ap.play();
+        $('#aplayer').addClass('showPlayer');
+    });
+    const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    listfolded: true,
+    audio: [{
+        name: "Better mistakes",
+        artist: "Bebe Rexha",
+        url: "/public/images/bebe.jpg",
+        cover: "/public/uploads/songs-1621849423425.mp3"
+    }]
+});
+</script>
+
+
+
+<%- include('partials/footer.ejs') %>

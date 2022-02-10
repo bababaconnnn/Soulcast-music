@@ -1,0 +1,108 @@
+.music-box {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    background-image: url("./images/Playyy.png");
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+body {
+    background-color: #191414;
+    margin: 0;
+    overflow-x: hidden;
+}
+.aaaa {
+    display: grid;
+    grid-template-columns: 12fr 1.4fr;
+    padding-bottom: 4%;
+}
+.f {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+.cover {
+    border-radius: 20px;
+}
+.aa {
+    font-size: 20px;
+}
+.bb {
+    font-size: 15px;
+}
+.play-desc {
+    margin-top: 20px;
+}
+.lyric {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 610;
+    font-size: 13;
+    display: block;
+    margin: auto;
+    height: 50%;
+}
+#wave2 {
+    margin-top: -1001.5px;
+    opacity: 70%;
+}
+.lyric-box {
+    height: 400px;
+    overflow-y: scroll;
+} 
+#scroll::-webkit-scrollbar   {
+    /* box-shadow: inset 0 0 6px rgb(35, 12, 61); */
+	border-radius: 10px;
+	background-color: #fffdf256;
+}
+#scroll::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: #16161686;
+}
+.listen-now {
+    border-radius: 15px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    font-weight: 510;
+    color: #fae62d;
+    background-color: #0a1533;
+}
+.date {
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    font-weight: 610;
+    color: rgba(7, 7, 46, 0.808);
+}
+
+/* heart */
+.heart {
+    width: 100%;
+  }
+  .heart i {
+    font-size: 27px;
+    color: #920606;
+    /* margin: 0 30px; */
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .heart i.active:hover{
+    font-size: 25px;
+    color: #920606;
+    /* margin: 0 30px; */
+    cursor: pointer
+  }
+  /* audio {
+    -moz-border-radius:7px 7px 7px 7px ;
+    -webkit-border-radius:7px 7px 7px 7px ;
+    border-radius:7px 7px 7px 7px ;
+  } */
+
+.dropdown-toggle-menu::after {
+    display: none !important;
+}
+.list-function {
+    font-family: "Roboto", sans-serif;
+    font-size: small;
+}
+.menup:hover {
+    color: rgba(34, 34, 36, 0.795);
+} 

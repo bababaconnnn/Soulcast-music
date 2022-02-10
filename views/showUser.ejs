@@ -1,0 +1,155 @@
+<%- include('partials/header.ejs') %>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="/show.css">
+<%- include('layout.ejs') %>
+<div class="modal fade" id="modal-<%= user.username %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content rounded-5 ">
+            <div class="modal-body text-center row container p-4 mx-auto my-auto">
+
+                <div class="profile-pic col-4">
+                <form  action="/edit/profile/<%= user._id %>" method="POST" enctype="multipart/form-data">     
+                        <img alt="User Pic" src="<%= user.profileImage %>" class="img-fluid" id="profile-image1" height="100px" width="100px" style="border-radius: 50%; object-fit: cover;">
+                        <input id="profile-image-upload" class="visually-hidden" type="file" name="profileImage" accept="image/*" onchange="previewFile()" >
+                    <label class="form-label ">
+                        <strong style="color: rgba(0, 0, 0, 0.452);">Choose profile image</strong>
+                    </label>
+                    </div>
+                    <div class="col-8">
+                        <div class="col-6">
+                            <label for="inputAddress2" class="form-label text-start"><strong>Firstname</strong></label>
+                            <input type="text" class="form-control" name="update[firstname]" placeholder="<%= user.firstname %>" value="<%= user.firstname %>">
+                        </div>
+                        <div class="col-6">
+                            <label for="inputAddress2" class="form-label text-start"><strong>Lastname</strong></label>
+                            <input type="text" class="form-control" name="update[lastname]" placeholder="<%= user.lastname %>" value="<%= user.lastname %>">
+                        </div>
+                        <div class="col-12">
+                            <label for="inputAddress2" class="form-label text-start"><strong>E-mail</strong></label>
+                            <input type="text" class="form-control" name="update[email]" placeholder="<%= user.email %>" value="<%= user.email %>">
+                        </div>
+                    </div>
+                <div class="modal-footer pt-3">
+                    <button type="button" class="btn btn-primary close" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" data-id="<%= currentUser._id %>" class="btn btn-primary danger">Update Profile</button>
+            
+            </div>
+            </form>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="card22 col-8 mt-4 shadow">
+    <div class="card-body container">
+        <div class="container d-flex p-2">
+            <div class="col-4 pe-4 text-center">
+                <img src="<%= user.profileImage %>" width="200px" height="200px" class="img-fluid" style="border-radius: 50%; object-fit: cover;">
+                <div>
+                    <p class="p-2 text-uppercase"><%= user.username %></p>
+                    <button type="button" data-bs-target="#modal-<%= user.username %>" data-bs-toggle="modal" class="btn-signup col-5 none-click">Edit Profile</button>
+
+                </div>
+            </div>
+            <div class="col-8 row g-3">
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Firstname</strong></label>
+                    <p class="form-control p-2"><%= user.firstname %></p>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Lastname</strong></label>
+                    <p class="form-control p-2"><%= user.lastname %></p>
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label"><strong>E-mail</strong></label>
+                    <p class="form-control p-2"><%= user.email %></p>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Birthday</strong></label>
+                    <p class="form-control p-2"><%= user.Bday + ' ' + user.Bmonth + ' ' + user.Byear %></p>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Plan</strong></label>
+                    <p class="form-control p-2"><%= user.plan %></p>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+</div>
+
+<div class="container col-8  my-5">
+    <h1 class="text-uppercast following py-2">FOLLOWING <%= artist.follow.length %> ARTISTS</h1>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4 g-4 pt-4 ">
+        <% artist.follow.forEach(function(artist){ %>
+            <div class="col song-search2">
+                <div class="shadow col-12 card-artist">
+                    <div class="card-body">
+                        <a href="/soulcast/artist/<%= artist.artist %>"><img class="pics-song img-fluid shadow" src="<%= artist.imageArtist %>" width="100%"></a>
+                        <div class="desc-song">
+                            <div>
+                                <p class="card-text songs song-artist"><%= artist.artist %></p>
+                            </div>
+                            <div class="position-relative col-12">
+                                <% var j = 0; %>
+                                <% if(currentUser.follow == ''){ %>
+                                    <form action="/soulcast/follow/<%= artist._id %>" method="POST">
+                                        <input name="follow" value="<%= artist._id %>" hidden>
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary pp col-12 play">FOLLOW</a>
+                                    </form>
+                                <% } else{ %>
+                                <% currentUser.follow.forEach(function(fav){ %>
+                                    <% if(fav.equals(artist._id)){ %>
+                                        <% j++; %>
+                                    <% } %>
+                          
+                                <% }); %>
+                                <% if(j>0){ %>
+                                    <form action="/soulcast/unfollow/<%= artist._id %>" method="POST">
+                                        <input name="follow" value="<%= artist._id %>" hidden>
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary pp col-12 play">UNFOLLOW</a>
+                                    </form>
+                                <% } else{ %>
+                                    <form action="/soulcast/follow/<%= artist._id %>" method="POST">
+                                        <input name="follow" value="<%= artist._id %>" hidden>
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary pp col-12 play">FOLLOW</a>
+                                    </form>
+                                <% } %>
+                                <% } %> 
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+        </div>
+        
+</div>
+
+
+
+
+  
+<script>
+    function previewFile() {
+   var preview = document.getElementById('profile-image1');
+   var file    = document.querySelector('input[type=file]').files[0];
+   var reader  = new FileReader();
+ 
+   reader.addEventListener("load", function () {
+     preview.src = reader.result;
+   }, false);
+ 
+   if (file) {
+     reader.readAsDataURL(file);
+   }
+ }
+                       $(function() {
+             $('#profile-image1').on('click', function() {
+                 $('#profile-image-upload').click();
+             });
+         });
+ </script>
+ <div class="noise"></div>
+
+<%- include('partials/footer.ejs') %>

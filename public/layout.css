@@ -1,0 +1,62 @@
+@font-face {
+    font-family: "Draft";
+    src: url("/font/DraftE-Bold.ttf") format("TrueType");
+}
+
+.navbar-brand img {
+    width: 100px;
+}
+nav {
+    background-color: rgba(255, 228, 196, 0);
+}
+#navbarText,.admin {
+    font-family: 'Draft';
+    font-size: 16px;
+}
+.navbar-toggler {
+    border: 0px;
+}
+.logout {
+    border: 3px solid white;
+    border-radius: 60px;
+    height: 40px;
+    width: 110px;
+    background-color: #ee5a2500;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: white;
+}
+.hover:hover {
+    color: #fae62d;
+}
+.hover2:hover {
+    border: 0;
+    background-color: #ee5c25;
+    font-weight: 700;
+    color: #191414;
+}
+.navbar-text a,.navbar-text p,.navbar-text img {
+    display: inline-block;
+}
+.container {
+    position:relative;
+    z-index:1;
+}
+.alert {
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 15px;
+    border-radius: 18px;
+    z-index: 1;
+}
+.alert-danger{
+    color: #a94442;
+    background-color: #e4a3a3;
+    border: 0;
+}
+.alert-success {
+    color: #336e34;
+    background-color: #b5dba6;
+    border: 0;
+}

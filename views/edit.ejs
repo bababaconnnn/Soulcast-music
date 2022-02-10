@@ -1,0 +1,247 @@
+<%- include('partials/headerAdmin.ejs') %>
+
+<!-- <%- include('layout.ejs') %> -->
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<div class="card col-10 shadow mt-2" id="card2" >
+  <div class="container">
+    <div class="card-body">
+      <div class="container">
+        <h4 class="card-title text-uppercase">Edit song</h4>  
+        <form class="row g-3" action="/admin/<%= song._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+          <div class="d-flex">
+            <div class="row col-6">
+            <div class="col-12">
+              <label for="inputAddress" class="form-label"><strong>Song's Name</strong></label>
+              <input type="text" class="form-control" name="updateSong[name]" placeholder="<%= song.name %>" value="<%= song.name %>">
+            </div>
+            <div class="col-12 pt-3">
+                <label for="inputAddress2" class="form-label"><strong>Artist</strong></label>
+                <input type="text" class="form-control" name="updateSong[artist]" placeholder="<%= song.artist %>" value="<%= song.artist %>">
+            </div>
+            <div class="col-6 pt-3">
+                <label for="formFile" class="form-label"><strong>Image single</strong></label>
+                <input type="file" class="form-control px-3 py-2" name="image" accept="image/*">
+                <img src="<%= song.image %>" width="60px" class="mt-2">
+            </div>
+            <div class="col-6 pt-3">
+                <label for="formFile" class="form-label"><strong>Song (.mp3)</strong></label>
+                <input type="file" class="form-control px-3 py-2" name="songs"  accept='audio/*'>
+                <label for="formFileDisabled" hidden></label>
+                    <audio controls controlsList="nodownload" class="audio mt-2">
+                        <source src="<%= song.songs %>" type="audio/mp3">
+                    </audio>                    
+            </div>
+            <div class="col-12 pt-3">
+                <label for="inputAddress2" class="form-label"><strong>Release Date</strong></label>
+                <input type="date" class="form-control" name="updateSong[releaseDate]" placeholder="<%= song.releaseDate %>" value="<%= song.releaseDate %>">
+            </div>
+            <div class="col-12 pt-3">
+            <% if( song.album !== ""){ %>
+                <label for="inputAddress2" class="form-label"><strong>Album</strong></label>
+                <input type="text" class="form-control" name="updateSong[album]" placeholder="<%= song.album %>" value="<%= song.album %>">
+            <% } else{ %>
+                <label for="inputAddress2" class="form-label"><strong>Album</strong></label>
+                <input type="text" class="form-control" name="updateSong[album]" placeholder="No Album add">
+            <% } %>           
+            </div>
+            </div>
+          <div class="row col-6 ms-4">
+            <div class="col-12">
+              <label for="inputAddress2" class="form-label"><strong>Lyrics</strong></label>
+              <textarea type="text" class="form-control input-lyric" name="updateSong[lyric]" placeholder="<%= song.lyric %>"><%= song.lyric %></textarea>
+            </div>
+            <div class="col-12">
+              <label class="form-label"><strong>Category</strong></label>
+              <% if( song.category === 'Pop'){ %>
+              <div class="d-flex form-label" style="font-size: 13.5px; font-weight: 500; color: rgba(0, 0, 0, 0.849);">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio1" value="Pop" checked>
+                <label class="form-check-label" for="inlineRadio1">Pop</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio2" value="Rock">
+                <label class="form-check-label" for="inlineRadio2">Rock</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio3" value="Indie">
+                <label class="form-check-label" for="inlineRadio3">Indie</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio4" value="Dance">
+                <label class="form-check-label" for="inlineRadio4">Dance</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio5" value="R&B/Soul">
+                <label class="form-check-label" for="inlineRadio5">R&B/Soul</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio6" value="Hip-hop/Rap">
+                <label class="form-check-label" for="inlineRadio6">Hip-hop/Rap</label>
+              </div>
+            </div>
+            <% } %>
+            <% if( song.category === 'Rock'){ %>
+                <div class="d-flex form-label" style="font-size: 13.5px; font-weight: 500; color: rgba(0, 0, 0, 0.849);">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio1" value="Pop">
+                  <label class="form-check-label" for="inlineRadio1">Pop</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio2" value="Rock" checked>
+                  <label class="form-check-label" for="inlineRadio2">Rock</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio3" value="Indie">
+                  <label class="form-check-label" for="inlineRadio3">Indie</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio4" value="Dance">
+                  <label class="form-check-label" for="inlineRadio4">Dance</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio5" value="R&B/Soul">
+                  <label class="form-check-label" for="inlineRadio5">R&B/Soul</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio6" value="Hip-hop/Rap">
+                  <label class="form-check-label" for="inlineRadio6">Hip-hop/Rap</label>
+                </div>
+              </div>
+              <% } %>
+              <% if( song.category === 'Indie'){ %>
+                <div class="d-flex form-label" style="font-size: 13.5px; font-weight: 500; color: rgba(0, 0, 0, 0.849);">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio1" value="Pop">
+                  <label class="form-check-label" for="inlineRadio1">Pop</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio2" value="Rock">
+                  <label class="form-check-label" for="inlineRadio2">Rock</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio3" value="Indie" checked>
+                  <label class="form-check-label" for="inlineRadio3">Indie</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio4" value="Dance">
+                  <label class="form-check-label" for="inlineRadio4">Dance</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio5" value="R&B/Soul">
+                  <label class="form-check-label" for="inlineRadio5">R&B/Soul</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio6" value="Hip-hop/Rap">
+                  <label class="form-check-label" for="inlineRadio6">Hip-hop/Rap</label>
+                </div>
+              </div>
+              <% } %>
+              <% if( song.category === 'Dance'){ %>
+                <div class="d-flex form-label" style="font-size: 13.5px; font-weight: 500; color: rgba(0, 0, 0, 0.849);">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio1" value="Pop">
+                  <label class="form-check-label" for="inlineRadio1">Pop</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio2" value="Rock">
+                  <label class="form-check-label" for="inlineRadio2">Rock</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio3" value="Indie">
+                  <label class="form-check-label" for="inlineRadio3">Indie</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio4" value="Dance" checked>
+                  <label class="form-check-label" for="inlineRadio4">Dance</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio5" value="R&B/Soul">
+                  <label class="form-check-label" for="inlineRadio5">R&B/Soul</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio6" value="Hip-hop/Rap">
+                  <label class="form-check-label" for="inlineRadio6">Hip-hop/Rap</label>
+                </div>
+              </div>
+              <% } %>
+              <% if( song.category === 'R&B/Soul'){ %>
+                <div class="d-flex form-label" style="font-size: 13.5px; font-weight: 500; color: rgba(0, 0, 0, 0.849);">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio1" value="Pop">
+                  <label class="form-check-label" for="inlineRadio1">Pop</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio2" value="Rock">
+                  <label class="form-check-label" for="inlineRadio2">Rock</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio3" value="Indie">
+                  <label class="form-check-label" for="inlineRadio3">Indie</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio4" value="Dance">
+                  <label class="form-check-label" for="inlineRadio4">Dance</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio5" value="R&B/Soul" checked>
+                  <label class="form-check-label" for="inlineRadio5">R&B/Soul</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio6" value="Hip-hop/Rap">
+                  <label class="form-check-label" for="inlineRadio6">Hip-hop/Rap</label>
+                </div>
+              </div>
+              <% } %>
+              <% if( song.category === 'Hip-hop/Rap'){ %>
+                <div class="d-flex form-label" style="font-size: 13.5px; font-weight: 500; color: rgba(0, 0, 0, 0.849);">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio1" value="Pop">
+                  <label class="form-check-label" for="inlineRadio1">Pop</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio2" value="Rock">
+                  <label class="form-check-label" for="inlineRadio2">Rock</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio3" value="Indie">
+                  <label class="form-check-label" for="inlineRadio3">Indie</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio4" value="Dance">
+                  <label class="form-check-label" for="inlineRadio4">Dance</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio5" value="R&B/Soul">
+                  <label class="form-check-label" for="inlineRadio5">R&B/Soul</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="updateSong[category]" id="inlineRadio6" value="Hip-hop/Rap" checked>
+                  <label class="form-check-label" for="inlineRadio6">Hip-hop/Rap</label>
+                </div>
+              </div>
+              <% } %>
+            </div>
+          </div>
+          </div>
+
+            <div class="text-center">
+                <a aria-current="page" href="/soulcast"><button type="submit" class="btn-signup col-3 mt-3 shadow-sm" style="background-color: #1fc58e; color: rgb(17, 19, 18);">EDIT SONG</button></a>
+            </div>
+          </form>
+      </div>
+    </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('input[type="checkbox"]').click(function() {
+          var inputValue = $(this).attr("value");
+          $("." + inputValue).toggle();
+      });
+  });
+</script>
+
+<%- include('partials/footerAdmin.ejs') %>

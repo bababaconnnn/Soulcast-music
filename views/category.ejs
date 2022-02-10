@@ -1,0 +1,35 @@
+<%- include('partials/header.ejs') %>
+
+<%- include('layout.ejs') %>
+<script src="https://kit.fontawesome.com/bce85edea6.js" crossorigin="anonymous"></script>
+
+<div class="container">
+    <div class="col-11 bg-newRelease">
+        <h1 class="cate-title"><%= song.category %></h1>
+        <div class="col-12 line"></div>
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4 g-5" >
+            <% song.forEach(function(song){ %>
+                <div class="col">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <img class="pics-song img-fluid shadow" src="<%= song.image %>" width="225px">
+                            <div class="desc-song">
+                                <div>
+                                    <p class="card-text songs"><%= song.name %></p>
+                                    <p class="card-text artist"><%= song.artist %></p>
+                                </div>
+                                <div class="position-relative">
+                                    <a href="/soulcast/play/<%= song._id %>"><button type="button" class="btn btn-sm btn-outline-secondary position-absolute bottom-0 end-0 play col-10">PLAY</button></a> 
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+            </div>
+
+</div>
+
+<!-- <%- include('footer.ejs') %> -->
+<%- include('partials/footer.ejs') %>

@@ -1,0 +1,103 @@
+<%- include('partials/headerAdmin.ejs') %>
+<link rel="stylesheet" href="/search.css">
+<link rel="stylesheet" href="/homeUser.css">
+    
+<div class="container d-flex justify-content-center col-12 mt-2">
+    <div class="col-5">
+        <div class="shadow" style="background-color: rgb(255, 255, 255); border-radius: 20px;">
+            <div class="container">
+                <div class="card-body">
+                        <h5 class="card-title text-uppercase pt-2">add new artist</h5>  
+                        <form class="row g-3 mt-1" action="/admin/add/artist" method="POST" enctype="multipart/form-data">
+                                <div class="row col-12">
+                                    <div class="col-12">
+                                        <label for="inputAddress" class="form-label"><strong>Artist's Name</strong></label>
+                                        <input type="text" class="form-control" name="newArtist[artist]" placeholder="Name of Artist" required>
+                                    </div>
+                                    <div class="col-12 pt-3">
+                                        <label for="formFile" class="form-label"><strong>Artist's image</strong></label>
+                                        <input type="file" class="form-control px-3 py-2" name="imageArtist" required accept="image/*" id="imgInp" required>
+                                    </div>
+                                </div>
+                            <div>
+                                <img id="blah" width="30%" class="pt-2">
+                            </div>
+                            
+                            <div class="">
+                                <button type="submit" class="btn-signup col-4 my-4 shadow-sm" style="background-color: #1fc58e; color: rgb(17, 19, 18);">ADD ARTIST</button>
+                            </div>
+                        </form>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ms-4 col-7" id='all-artists'>
+        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-md-3 g-4">
+        <% artist.forEach(function(artist){ %>
+            <div class="col song-search2">
+                <div class="shadow col-12 card-artist" style="background-color: rgba(255, 255, 255, 0.76);">
+                    <div class="card-body">
+                        <a href="/soulcast/artist/<%= artist.artist %>"><img class="pics-song img-fluid shadow" src="<%= artist.imageArtist %>" width="120%"></a>
+                        <div class="desc-song">
+                            <div>
+                                <p class="card-text songs song-artist"><%= artist.artist %></p>
+                            </div>
+                            <div class="position-relative col-12">
+                                <a href="/admin/edit/artist/<%= artist._id %>"><button type="button" class="btn btn-sm btn-outline-secondary play col-12 shadow-sm end-0" style="background-color: #ee5c25; color: rgb(0, 0, 0); font-size: 15px;">EDIT</button></a>
+                                
+                                <!-- Modal -->
+                                <!-- <div class="modal fade" id="modal-<%= artist.artist %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1;">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content ">
+                                             <div class="modal-header ">
+                                                <h5 class="modal-title col-12 text-center position-relative" id="exampleModalLabel"><i class="fal fa-trash-alt"></i>
+                                                    <button type="button" class="btn-close position-absolute top-0 end-0" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </h5>
+                                             </div>
+                                             <div class="modal-body">
+                                                <p>Do you want to delete these artist(<%= artist.artist %>)? This process cannot be undone.</p>
+                                             </div>
+                                             <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary close" data-bs-dismiss="modal">Close</button>
+                                                <form action="/admin/deleteArtist/<%= artist._id %>?_method=DELETE" method="POST">
+                                                    <button type="submit" data-id="<%= artist._id %>" class="btn btn-primary danger">DELETE</button>
+                                                </form>
+                                             </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <form action="/admin/deleteArtist/<%= artist._id %>?_method=DELETE" method="POST" onsubmit="if(!confirm('Do you really want to delete these artist(<%= artist.artist %>)? This process cannot be undone.')){return false;}">
+                                    <button type="submit"  class="btn btn-sm btn-outline-secondary play col-12 shadow-sm mt-2 end-0 delete" data-bs-target="#modal-<%= artist.artist %>" data-bs-toggle="modal" style="background-color: #d40505; color: rgb(0, 0, 0); font-size: 15px;">DELETE</button>
+                                </form>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+        </div>
+    </div> 
+</div>
+
+
+
+  <script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#imgInp").change(function(){
+        readURL(this);
+    });
+</script>
+
+<%- include('partials/footerAdmin.ejs') %>

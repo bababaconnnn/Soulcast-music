@@ -1,0 +1,137 @@
+<%- include('partials/headerAdmin.ejs') %>
+
+<link rel="stylesheet" href="/homeUser.css">
+
+<!-- modal -->
+<!-- <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content ">
+             <div class="modal-header ">
+                <h5 class="modal-title col-12 text-center position-relative" id="exampleModalLabel"><i class="fal fa-trash-alt"></i>
+                    <button type="button" class="btn-close position-absolute top-0 end-0" data-bs-dismiss="modal" aria-label="Close"></button>
+                </h5>
+             </div>
+             <div class="modal-body">
+                <p>Do you really want to delete these song? This process cannot be undone.</p>
+             </div>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-primary close" data-bs-dismiss="modal">Close</button>
+                <form action="/admin/<%= song._id %>?_method=DELETE" method="POST">
+                    <button type="submit" data-id="<%= song._id %>" class="btn btn-primary danger">DELETE</button>
+                </form>
+             </div>
+        </div>
+    </div>
+</div> -->
+<!-- 
+<script>
+$(".delete").click(function (e) {
+    e.preventDefault();
+    var tr = $(this),
+        modal = $('#modal');
+    // make AJAX call passing the ID
+    $.getJSON('/admin/' + tr.data('id') + '?_method=DELETE', function (data) {
+        // set values in modal
+        modal.find('form').attr('action', '/admin/' + tr.data('id') + '?_method=DELETE' );
+        // open modal
+        modal.modal('show');
+    });
+});
+</script> -->
+<div class="mt-2">
+<form class="container search-form d-flex p-2 col-6" action="/admin/search" method="POST">
+    <button type="submit" class="search-button ps-2">
+      <svg class="submit-button">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+      </svg>
+    </button>
+    <input type="search" value="" placeholder="Search Song..." class="search-input ps-3 " name="search2" id="search23" onkeyup='searchLive2()'>
+</form>
+</div>
+    <div class="col-11 bg-newRelease mb-5 mt-2" >
+            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2  row-cols-lg-3 row-cols-xl-4 row-cols-xxl-4-4 g-5" id="all-songss">
+            <% song.forEach(function(song){ %>
+                <div class="col song-search3">
+                    <div class="card shadow" style="background-color: #ffffffd0;">
+                        <div class="card-body">
+                            <img class="pics-song img-fluid shadow" src="<%= song.image %>" width="225px">
+                            <div class="desc-song">
+                                <div>
+                                    <p class="card-text songs mt-4 song-name22"><%= song.name %></p>
+                                    <p class="card-text artist pt-2"><%= song.artist %></p>
+                                </div>
+                                <div class="position-relative">
+                                    <div class="position-absolute bottom-0 end-0">
+                                        <a href="/admin/edit/<%= song._id %>"><button type="button" class="btn btn-sm btn-outline-secondary play col-12 shadow-sm end-0" style="background-color: #ee5c25; color: rgb(0, 0, 0); font-size: 15px;">EDIT</button></a>
+                                        <form action="/admin/<%= song._id %>?_method=DELETE" method="POST" onsubmit="if(!confirm('Do you really want to delete these song(<%= song.name %>)? This process cannot be undone.')){return false;}">
+                                            <!-- Modal -->
+                                            <!-- <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1;">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content ">
+                                                         <div class="modal-header ">
+                                                            <h5 class="modal-title col-12 text-center position-relative" id="exampleModalLabel"><i class="fal fa-trash-alt"></i>
+                                                                <button type="button" class="btn-close position-absolute top-0 end-0" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </h5>
+                                                         </div>
+                                                         <div class="modal-body">
+                                                            <p>Do you really want to delete these song? This process cannot be undone.</p>
+                                                         </div>
+                                                         <div class="modal-footer">
+                                                            <button type="button" class="btn btn-primary close" data-bs-dismiss="modal">Close</button>
+                                                            <form action="/admin/<%= song._id %>?_method=DELETE" method="POST">
+                                                                <button type="submit" data-id="<%= song._id %>" class="btn btn-primary danger">DELETE</button>
+                                                            </form>
+                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            
+                                            <button type="submit"  class="btn btn-sm btn-outline-secondary play col-12 shadow-sm mt-2 end-0 delete" data-bs-target="#modal" data-bs-toggle="modal" style="background-color: #d40505; color: rgb(0, 0, 0); font-size: 15px;">DELETE</button>
+                                        </form>
+                                    </div>
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+            </div>
+
+</div>
+
+<script>
+    function searchLive2() {
+      // Declare variables
+      var search, filter, allSongs, song, songName, i, txtValue;
+      search = document.getElementById('search23');
+      filter = search.value.toUpperCase();
+      allSongs = document.getElementById("all-songss");
+      song = allSongs.getElementsByClassName('song-search3');
+    
+      // Loop through all list items, and hide those who don't match the search query
+      for (i = 0; i < song.length; i++) {
+        songName = song[i].getElementsByClassName("song-name22")[0];
+        txtValue = songName.textContent || songName.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          song[i].style.display = "";
+          
+        } else {
+          song[i].style.display = "none";
+        }
+      }
+
+    //   for (j = 0; j < song2.length; j++) {
+    //     songArtist = song2[j].getElementsByClassName("song-artist")[0];
+    //     txtValue2 = songArtist.textContent || songArtist.innerText;
+    //     if (txtValue2.toUpperCase().indexOf(filter) > -1) {
+    //       song2[j].style.display = "";
+          
+    //     } else {
+    //       song2[j].style.display = "none";
+    //     }
+    //   }
+    }
+
+</script>
+
+<%- include('partials/footerAdmin.ejs') %>

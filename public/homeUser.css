@@ -1,0 +1,120 @@
+.listen {
+    border: 0;
+    background-color: #fae62d;
+    border-radius: 60px;
+    height: 45px;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 710;
+    font-size: 19.5px;
+    color: #191414;
+    position: absolute;
+    top: 65%;
+    left: 22%;
+    transform: translate(-50%, -50%);
+}
+.bg-newRelease {
+    background-color: #ad98c600;
+    
+    display: block;
+    margin: auto;
+    margin-top: 23px;
+    margin-bottom: 40px;
+}
+.card {
+    border-radius: 15px;
+    background-color: #ad98c6;
+    width: 260px;
+    transition: all ease 0.4s;
+}
+.card:hover{
+    box-shadow: none;
+    transform: scale(0.98) translateY(5px);
+}
+.card2 {
+    border-radius: 15px;
+    background-color: #ad98c600;
+    width: 260px;
+    transition: all ease 0.4s;
+}
+.card2:hover{
+    box-shadow: none;
+    transform: scale(0.98) translateY(5px);
+}
+.card-artist {
+    border-radius: 15px;
+    background-color: #ad98c6;
+    transition: all ease 0.4s;
+}
+.card-artist:hover{
+    box-shadow: none;
+    transform: scale(0.98) translateY(5px);
+}
+.pics-song {
+    border-radius: 14px;
+    display: block;
+    margin: auto;
+}
+.desc-song {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+.desc-song p,.play-desc p {
+    line-height: 13px;
+    font-family: 'Barlow', sans-serif;
+    
+}
+.songs {
+    font-weight: 590;
+    font-size: 15px;
+    color: black;
+}
+.artist {
+    font-weight: 550;
+    font-size: 13px;
+    color: rgb(70, 70, 70);
+}
+.line {
+    /* color: #fae62d; */
+    height: 0px;
+    border: none;
+    border-top: 1px solid #1fc58e;
+    margin-bottom: 40px;
+}
+.play {
+    border: 0;
+    border-radius: 20px;
+    height: 35px;
+    background-color: #fae62d;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 650;
+    font-size: 16px;
+    color: #0e0d0b;
+    /* border: 3px solid #fae62d;
+    border-radius: 20px;
+    height: 35px;
+    background-color: #fae52d00;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 650;
+    font-size: 16px;
+    color: #fae62d; */
+}
+.search-play {
+    border: 0;
+    border-radius: 20px;
+    background-color: #fae62d;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 650;
+    font-size: 16px;
+    color: #0e0d0b;
+}
+.play:hover {
+    background-color: #ee5c25;
+}
+.search-play:hover {
+    background-color: #ee5c25;
+}
+.none-click:focus {
+    outline: none;
+}

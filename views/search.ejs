@@ -1,0 +1,177 @@
+<%- include('partials/header.ejs') %>
+<link href="https://unpkg.com/pattern.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/bce85edea6.js" crossorigin="anonymous"></script>
+<%- include('layout.ejs') %>
+<div class="container">
+    <div class="col-11 d-flex justify-content-center mx-auto">
+        <div class="col-5 pt-4" id='all-songs'>
+            <div class="row position-relative">
+                <h1 class="title-search text-uppercase col">Songs</h1>
+                <div class="col-4 text-end my-2">
+                    <select class="form-select" id='js-sort-by' aria-label="Default select example" onchange="sort()">
+                        <option selected>Sort By</option>
+                        <option value="name">Name</option>
+                        <option value="view">Most listten</option>
+                        <option value="minView">Least listen</option>
+                    </select>   
+                </div>
+
+            </div>
+            <div id='js-list'>
+            <% song.forEach(function(song){ %>
+            <div class="pt-4 song-search searchable" data-name='<%=song.name %>' data-view='<%=song.listen %>' data-view2='<%=song.listen %>'>
+            <div class="all-s shadow search-box">
+                <div class="d-flex block col-12">
+                    <img src="<%= song.image %>" class="img-fluid rounded me-2 shadow-lg" width="11%" height="11%">
+            
+                    <div class="d-flex align-items-center col-11">
+                        <div class="desc col-9">
+                            <strong class="text-gray-dark name-song song-name"><%= song.name %></strong>
+                            <span class="d-block name-artist"><%= song.artist %></span>
+                        </div>
+                        <div class="position-relative col-3">
+                            <div class="d-flex flex-row-reverse position-relative">
+                                <div class="position-absolute top-50 end-0 translate-middle-y d-flex">
+                                    <div class="p-2 mt-1 d-flex">
+                                        <i class="fad fa-headphones-alt pe-2 pt-1"></i><p><%= song.listen %></p>
+                                    </div>
+                                    <div class="heart2 p-2">
+                                        <% var i = 0; %>
+                                        <% if(currentUser.favorite == ''){ %>
+                                            <form action="/soulcast/search/fav/<%= currentUser._id %>" method="POST">
+                                                <input name="fav" value="<%= song._id %>" hidden>
+                                                <div class="heart">
+                                                    <button type="submit" class="bg-transparent border-0"><i class="fas fa-heart favorite active" aria-hidden="true" style="color: #30303044;"></i></button>
+                                                </div>
+                                            </form>
+                                        <% } else { %>
+                                            <% currentUser.favorite.forEach(function(fav){ %>
+                                                <% if(fav.equals(song._id)){ %>
+                                                    <% i++; %>    
+                                                <% } %>
+                                            <% }); %>
+                                            <% if(i>0){%>
+                                                <form action="/soulcast/search/delete/<%= currentUser._id %>" method="POST">
+                                                    <input name="delete" value="<%= song._id %>" hidden>
+                                                    <div class="heart">
+                                                        <button type="submit" class="bg-transparent border-0"><i class="fas fa-heart favorite active" aria-hidden="true" style="color: #920606;"></i></button>
+                                                    </div>
+                                                </form>
+                                            <% } else{ %>
+                                                <form action="/soulcast/search/fav/<%= currentUser._id %>" method="POST">
+                                                    <input name="fav" value="<%= song._id %>" hidden>
+                                                    <div class="heart">
+                                                        <button type="submit" class="bg-transparent border-0"><i class="fas fa-heart favorite active" aria-hidden="true" style="color: #30303044;"></i></button>
+                                                    </div>
+                                                </form>
+                                            <% } %>
+                                        <% } %>
+                                    </div>
+                                    <div class="p-2 pe-4">
+                                        <a href="/soulcast/play/<%= song._id %>"><button type="button" class="btn btn-sm btn-outline-secondary pp2 col-12 search-play shadow">PLAY</button></a> 
+                                    </div>                                                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <% }); %>
+            </div>
+        </div>
+        <div class="ps-4 pt-4 pb-4 col-6 ms-4 col-7" id='all-artists'>
+            <h1 class="title-search text-uppercase">Artist</h1>
+            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-md-3 g-4 pt-4 ">
+            <% artist.forEach(function(artist){ %>
+                <div class="col song-search2">
+                    <div class="shadow col-12 card-artist">
+                        <div class="card-body">
+                            <a href="/soulcast/artist/<%= artist.artist %>"><img class="pics-song img-fluid shadow" src="<%= artist.imageArtist %>" width="120%"></a>
+                            <div class="desc-song">
+                                <div>
+                                    <p class="card-text songs song-artist"><%= artist.artist %></p>
+                                </div>
+                                <div class="position-relative col-12">
+                                    <a href="/soulcast/artist/<%= artist.artist %>"><i class="fas fa-arrow-circle-right position-absolute bottom-0 end-0 mt-2" style="font-size: 25px; color: rgba(0, 0, 0, 0.637);"></i></a> 
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function searchLive() {
+      // Declare variables
+      var search, filter, allSongs, song,song2,songArtist, songName, i,j, txtValue,txtValue2;
+      search = document.getElementById('search22');
+      filter = search.value.toUpperCase();
+      allSongs = document.getElementById("all-songs");
+      allArtists = document.getElementById("all-artists");
+      song = allSongs.getElementsByClassName('song-search');
+      song2 = allArtists.getElementsByClassName('song-search2');
+    
+      // Loop through all list items, and hide those who don't match the search query
+      for (i = 0; i < song.length; i++) {
+        songName = song[i].getElementsByClassName("song-name")[0];
+        txtValue = songName.textContent || songName.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          song[i].style.display = "";
+          
+        } else {
+          song[i].style.display = "none";
+        }
+      }
+
+      for (j = 0; j < song2.length; j++) {
+        songArtist = song2[j].getElementsByClassName("song-artist")[0];
+        txtValue2 = songArtist.textContent || songArtist.innerText;
+        if (txtValue2.toUpperCase().indexOf(filter) > -1) {
+          song2[j].style.display = "";
+          
+        } else {
+          song2[j].style.display = "none";
+        }
+      }
+    }
+
+
+
+
+
+
+
+const searchableItems    = document.querySelectorAll('.searchable');
+const sortBy             = document.querySelector('#js-sort-by');
+const listContainer      = document.querySelector('#js-list');
+
+// Callback for sorting the items
+sortBy.addEventListener('change', function(event) {
+  // Need to convert to an array, since we can't call sort on a NodeList
+  let itemsArray = Array.prototype.slice.call(searchableItems, 0);
+  // Sort the array of nodes
+  itemsArray = itemsArray.sort(function(a, b) {
+    let aVal = ('view' == sortBy.value) ? a.dataset.view : ('name' == sortBy.value) ? a.dataset.name.toLowerCase() : ('minView' == sortBy.value) ? a.dataset.view2 : a.dataset.index;
+    let bVal = ('view' == sortBy.value) ? b.dataset.view : ('name' == sortBy.value) ? b.dataset.name.toLowerCase() : ('minView' == sortBy.value) ? b.dataset.view2 : b.dataset.index;
+    // let cVal = ('view' == sortBy.value) ? c.dataset.view : ('name' == sortBy.value) ? c.dataset.name.toLowerCase() : ('minView' == sortBy.value) ? c.dataset.view2 : c.dataset.index;
+    if(sortBy.value == 'view'){
+        return aVal > bVal ? -1 : 1;
+    } else {
+        return aVal > bVal ? 1 : -1;
+    }
+  });
+  // Empty the list of items and re-add everything in the sorted order
+  listContainer.innerHTML = ''
+  itemsArray.forEach((item, index) => {
+    listContainer.append(item);
+  });
+});
+</script>
+<%- include('footer.ejs') %>
+
+
+<%- include('partials/footer.ejs') %>

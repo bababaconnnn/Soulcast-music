@@ -1,0 +1,52 @@
+<%- include('partials/headerAdmin.ejs') %>
+
+<div class="card col-9 shadow mt-4" id="card2">
+<div class="container">
+<div class="card-body mx-auto">
+    <div class="container"> 
+        <form class="row g-3" action="/admin/user/<%= user._id %>?_method=PUT" method="POST">
+            <div class="container d-flex p-2">
+                <div class="col-3 pe-4">
+                    <img src="<%= user.profileImage %>" width="200px" height="200px" class="adminPro">
+                </div>
+                <div class="col-9 row g-3">
+                    <div class="col-md-12">
+                        <label class="form-label"><strong>ID</strong></label>
+                        <p class="form-control p-2"><%= user._id %></p>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label"><strong>Username</strong></label>
+                        <p class="form-control p-2"><%= user.username %></p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label"><strong>Firstname</strong></label>
+                        <p class="form-control p-2"><%= user.firstname %></p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label"><strong>Lastname</strong></label>
+                        <p class="form-control p-2"><%= user.lastname %></p>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label"><strong>Email</strong></label>
+                        <p class="form-control p-2"><%= user.email %></p>
+                    </div>
+                    <div class="col-3">
+                        <% if(user.role === 'User'){ %>
+                        <input class="form-check-input"  type="checkbox" name="role" id="defaultCheck1" value="Admin">
+                        <label class="form-check-label form-label ps-2" for="defaultCheck1"><strong>Change to admin</strong></label>
+                        <% }else{ %>
+                        <input class="form-check-input"  type="checkbox" name="role" id="defaultCheck1" value="User">
+                        <label class="form-check-label form-label ps-2" for="defaultCheck1"><strong>Remove from admin</strong></label>
+                        <% } %>   
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn-signup col-3 mt-3 shadow-sm" style="background-color: #1fc58e; color: rgb(17, 19, 18);">UPDATE USER</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+<%- include('partials/footerAdmin.ejs') %>

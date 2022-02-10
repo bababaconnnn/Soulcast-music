@@ -1,0 +1,194 @@
+<%- include('partials/artist-header.ejs') %>
+
+<%- include('layout.ejs') %>
+<div class="noise"></div>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/pattern.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/bce85edea6.js" crossorigin="anonymous"></script>
+
+
+<div class="container " style="margin-top: 30px;">
+    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 box-pic d-flex justify-content-center">
+        <div class="bg-head col-4 col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+            <div>
+                <img class="img-fluid shadow" style="border-radius: 5%;" src="<%= artist.imageArtist %>">
+            </div>
+            <div class="mt-3">
+                <p class="name text-uppercase" ><%= artist.artist %></p>
+                <div class="row">
+                    <div class="col-5">
+                    <% var j = 0; %>
+                    <% if(currentUser.follow == ''){ %>
+                        <form action="/soulcast/follow/<%= artist._id %>" method="POST">
+                            <input name="follow" value="<%= artist._id %>" hidden>
+                            <button type="submit" class="btn btn-sm btn-outline-secondary pp col-12">FOLLOW</a>
+                        </form>
+                    <% } else{ %>
+                    <% currentUser.follow.forEach(function(fav){ %>
+                        <% if(fav.equals(artist._id)){ %>
+                            <% j++; %>
+                        <% } %>
+              
+                    <% }); %>
+                    <% if(j>0){ %>
+                        <form action="/soulcast/unfollow/<%= artist._id %>" method="POST">
+                            <input name="follow" value="<%= artist._id %>" hidden>
+                            <button type="submit" class="btn btn-sm btn-outline-secondary pp col-12">UNFOLLOW</a>
+                        </form>
+                    <% } else{ %>
+                        <form action="/soulcast/follow/<%= artist._id %>" method="POST">
+                            <input name="follow" value="<%= artist._id %>" hidden>
+                            <button type="submit" class="btn btn-sm btn-outline-secondary pp col-12">FOLLOW</a>
+                        </form>
+                    <% } %>
+                    <% } %>
+                    </div>
+                    <div class="col-7 text-start pt-1">
+                        <p class="follower"><i class="fas fa-users pe-2"></i><%= artist.follower %> follower</p>
+                    </div>
+                </div>
+            </div>
+
+        <!-- <div class="artist d-flex p-5">
+            <div class="start-1 col-4">
+                <img class="img-fluid img-circle" style="border-radius: 50%;" src="/images/Remini20210524175810214.jpg" width="75%">
+            </div>
+            <div class="col-6 align-items-center position-relative">
+                <div class="position-absolute top-50 start-0 translate-middle-y">
+                    <p class="name"><u>BEBE REXHA</u></p>
+                    <a href=""><button type="button" class="btn btn-sm btn-outline-secondary pp col-12">FOLLOW</button></a>
+                </div>
+                
+            </div>     
+        </div>             -->
+        </div>
+        <div class="ps-4 pt-4 pb-4 col-8 col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 ms-4">
+            <img class="img-fluid" src="/images/Topppp.png" width="200px">
+            <% song.forEach(function(song){ %>
+            <div class="pt-4">
+            <div class="p-3 all-s shadow-sm ">
+
+                <div class="d-flex block col-12">
+                    <img src="<%= song.image %>" class="img-fluid pic-s" width="6.5%">
+            
+                    <div class="d-flex align-items-center col-11">
+                        <div class="desc col-10">
+                            <strong class="text-gray-dark name-song"><%= song.name %></strong>
+                            <span class="d-block name-artist"><%= song.artist %></span>
+                        </div>
+                        <div class="position-relative col-2">
+                            <!-- <div class="position-absolute top-50 end-0 translate-middle flex-row-reverse">
+                                <div>
+                                    <a href=""><button type="button" class="btn btn-sm btn-outline-secondary position-absolute top-50 translate-middle col-12">PLAY</button></a> 
+                                </div>
+                                <div class="heart">
+                                    <i class="fas fa-heart favorite active position-absolute top-50 translate-middle" aria-hidden="true" onclick="handleFavorite()"></i>
+                                </div>
+                                <div class="menu-dropdown active">
+                                    <i class='fas fa-ellipsis-v down position-absolute top-50 translate-middle end-0'></i>
+                                </div>                             
+                            </div> -->
+                            <div class="d-flex flex-row-reverse position-relative">
+                                <div class="position-absolute top-50 end-0 translate-middle-y d-flex">
+                                    <div class="p-4 position-relative me-5">
+                                        <a href="/soulcast/play/<%= song._id %>"><button type="button" class="btn btn-sm btn-outline-secondary pp2 position-absolute top-50 start-0 translate-middle-y">PLAY</button></a> 
+                                    </div>
+                                    <div class="heart2 p-4">
+                                    <% var i = 0; %>
+                                    <% if(currentUser.favorite == ''){ %>
+                                        <form action="/soulcast/play/fav/<%= currentUser._id %>" method="POST">
+                                            <input name="fav" value="<%= song._id %>" hidden>
+                                            <div class="heart position-relative">
+                                                <button type="submit" class="bg-transparent border-0 none-click"><i class="fas fa-heart favorite active p-2 position-absolute top-50 end-0 translate-middle-y" aria-hidden="true" style="color: #30303065;"></i></button>
+                                            </div>
+                                        </form>
+                                    <% } else { %>
+                                        <% currentUser.favorite.forEach(function(fav2){ %>
+                                            <% if(fav2.equals(song._id)){ %>
+                                                <% i++; %>    
+                                            <% } %>
+                                        <% }); %>
+                                        <% if(i>0){%>
+                                            <form action="/soulcast/play/fav/delete/<%= currentUser._id %>" method="POST">
+                                                <input name="delete" value="<%= song._id %>" hidden>
+                                                <div class="heart position-relative">
+                                                    <button type="submit" class="bg-transparent border-0 none-click"><i class="fas fa-heart favorite active p-2 position-absolute top-50 end-0 translate-middle-y" aria-hidden="true" style="color: #920606;"></i></button>
+                                                </div>
+                                            </form>
+                                        <% } else{ %>
+                                            <form action="/soulcast/play/fav/<%= currentUser._id %>" method="POST">
+                                                <input name="fav" value="<%= song._id %>" hidden>
+                                                <div class="heart position-relative">
+                                                    <button type="submit" class="bg-transparent border-0 none-click"><i class="fas fa-heart favorite active p-2 position-absolute top-50 end-0 translate-middle-y" aria-hidden="true" style="color: #30303065;"></i></button>
+                                                </div>
+                                            </form>
+                                        <% } %>
+                                    <% } %>
+                                    </div>
+                                    <% if(currentUser.plan === 'Soulcast Premium'){ %>
+                                    <div class="menu-dropdown active position-relativeps-3">
+                                        <div class="btn-group dropup position-absolute top-50 translate-middle end-0">
+                                            <button type="button" class="border-0 bg-transparent dropdown-toggle dropdown-toggle-menu none-click shadow-none outline-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class='fas fa-ellipsis-v down position-absolute top-50 end-0 translate-middle-y'></i>
+                                            </button>   
+                                            <ul class="dropdown-menu list-function">
+                                                <li><a class="dropdown-item py-2" href="<%= song.songs %>" download><i class="fas fa-download pe-2"></i>Download Song</a></li>
+                                                <li><a class="dropdown-item py-2" href="#"><i class="fad fa-share-alt pe-2"></i>Share Song</a></li>
+                                            </ul>
+                                        </div>  
+                                    </div>
+                                    <% } %>                                                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <% }); %>
+
+        </div>  
+    </div>
+</div>
+
+<div class="container py-5">
+    
+        <div>
+                   <h3 class="pb-2 name text-uppercase" style="color: rgb(255, 255, 255);">ALBUM OF <%= artist.artist %></h3>
+        <div class="col-12 line"></div> 
+        </div>
+<div class="row row-cols-1 row-cols-sm-1 row-cols-md-2  row-cols-lg-3 row-cols-xl-4 row-cols-xxl-4 g-5" >
+        <% album.forEach(function(album){ %>
+            <div class="col">
+                <div class="card shadow" style="background-color: rgba(255, 252, 242, 0.801);">
+                    <div class="card-body">
+                        <div class="position-relative">
+                            <img class="pics-song img-fluid shadow" src="<%= album.image %>" width="225px">
+                        </div>
+                        <div class="desc-song">
+                            <div>
+                                <p class="card-text songs"><%= album.name %></p>
+                                <p class="card-text artist"><%= album.artist %></p>
+                            </div>
+                            <div class="position-relative">
+                                <a href="/soulcast/goAlbum/<%= album.name %>"><button type="button" class="btn btn-sm btn-outline-secondary position-absolute bottom-0 end-0 play col-12" style="background-color: #1fc58e;">VIEW</button></a>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+        </div>
+</div>
+
+<%- include('footer.ejs') %>
+
+<script>
+    var heart = document.querySelector('.favorite');
+    function handleFavorite() {
+    heart.classList.toggle('active');
+    }
+</script>
+
+<%- include('partials/footer.ejs') %>

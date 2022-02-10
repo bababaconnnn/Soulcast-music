@@ -1,0 +1,69 @@
+<%- include('partials/header.ejs') %>
+
+<%- include('layout.ejs') %>
+<div class="noise"></div>
+<script src="https://kit.fontawesome.com/bce85edea6.js" crossorigin="anonymous"></script>
+
+<div class="container">
+    <div class="col-11 bg-newRelease">
+        <h1 class="following pb-2"><%= user.favorite.length %> FAVORITE SONGS</h1>
+        <div class="col-12 line"></div>
+
+            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2  row-cols-lg-3 row-cols-xl-4 row-cols-xxl-4 g-5" >
+            <% user.favorite.forEach(function(fav){ %>
+                <div class="col">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="position-relative">
+                                <img class="pics-song img-fluid shadow" src="<%= fav.image %>" width="225px">
+                                <p class='position-absolute top-0 end-0'>
+                                    <% var i = 0; %>
+                                    <% if(currentUser.favorite == ''){ %>
+                                        <form action="/soulcast/play/fav/<%= currentUser._id %>" method="POST">
+                                            <input name="fav" value="<%= fav._id %>" hidden>
+                                            <div class="heart">
+                                                <button type="submit" class="bg-transparent border-0 position-absolute top-1 end-1 none-click"><i class="fas fa-heart favorite active p-2" aria-hidden="true" style="color: #30303054;"></i></button>
+                                            </div>
+                                        </form>
+                                    <% } else { %>
+                                        <% currentUser.favorite.forEach(function(fav2){ %>
+                                            <% if(fav2.equals(fav._id)){ %>
+                                                <% i++; %>    
+                                            <% } %>
+                                        <% }); %>
+                                        <% if(i>0){%>
+                                            <form action="/soulcast/play/fav/delete/<%= currentUser._id %>" method="POST">
+                                                <input name="delete" value="<%= fav._id %>" hidden>
+                                                <div class="heart">
+                                                    <button type="submit" class="bg-transparent border-0 position-absolute top-0 end-0 none-click"><i class="fas fa-heart favorite active p-2" aria-hidden="true" style="color: #920606;"></i></button>
+                                                </div>
+                                            </form>
+                                        <% } else{ %>
+                                            <form action="/soulcast/play/fav/<%= currentUser._id %>" method="POST">
+                                                <input name="fav" value="<%= fav._id %>" hidden>
+                                                <div class="heart">
+                                                    <button type="submit" class="bg-transparent border-0 position-absolute top-0 end-0 none-click"><i class="fas fa-heart favorite active p-2" aria-hidden="true" style="color: #30303025;"></i></button>
+                                                </div>
+                                            </form>
+                                        <% } %>
+                                    <% } %>
+                                </p>
+                            </div>
+                            <div class="desc-song">
+                                <div>
+                                    <p class="card-text songs"><%= fav.name %></p>
+                                    <p class="card-text artist"><%= fav.artist %></p>
+                                </div>
+                                <div class="position-relative">
+                                    <a href="/soulcast/play/<%= fav._id %>"><button type="button" class="btn btn-sm btn-outline-secondary position-absolute bottom-0 end-0 play col-10">PLAY</button></a>
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+            </div>
+
+</div>
+
+<%- include('partials/footer.ejs') %>

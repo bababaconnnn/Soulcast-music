@@ -1,0 +1,69 @@
+<%- include('partials/header.ejs') %>
+<link rel="stylesheet" href="/show.css">
+<%- include('layout.ejs') %>
+<div class="card22 col-8 mt-4 shadow">
+    <div class="card-body container">
+        <div class="container d-flex p-2">
+            <div class="col-4 pe-4 text-center">
+                <img src="<%= user.profileImage %>" width="200px" height="200px" class="img-fluid" id="profile-image1" style="border-radius: 50%; object-fit: cover;">
+                <div>
+                    <input id="profile-image-upload" class="visually-hidden" type="file" name="profileImage" accept="image/*" onchange="previewFile()" >
+                    <div style="color:rgb(15, 15, 15);" class="text-center pt-2"><label class="form-label "><strong>Choose profile image</strong></label></div>
+                </div>
+                <!-- <div class="profile-pic ps-5 col-3">           
+                    <img alt="User Pic" src="https://d30y9cdsu7xlg0.cloudfront.net/png/138926-200.png" class="img-fluid" id="profile-image1" height="200px" width="200px" style="border-radius: 50%; object-fit: cover;">
+                    <input id="profile-image-upload" class="visually-hidden" type="file" name="profileImage" accept="image/*" onchange="previewFile()" >
+                    <div style="color:rgb(15, 15, 15);" class="text-center pt-2"><label class="form-label "><strong>Choose profile image</strong></label></div>
+                </div> -->
+            </div>
+            <div class="col-8 row g-3">
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Firstname</strong></label>
+                    <input type="text" class="form-control" name="update[firstnaame]" placeholder="<%= currentUser.name %>" value="<%= currentUser.name %>">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Lastname</strong></label>
+                    <input type="text" class="form-control" name="update[lastname]" placeholder="<%= currentUser.name %>" value="<%= currentUser.name %>">
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label"><strong>E-mail</strong></label>
+                    <input type="text" class="form-control" name="update[email]" placeholder="<%= currentUser.name %>" value="<%= currentUser.name %>">
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label"><strong>Username</strong></label>
+                    <input type="text" class="form-control" name="update[name]" placeholder="<%= currentUser.username %>" value="<%= currentUser.username %>">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Plan</strong></label>
+                    <input type="text" class="form-control" placeholder="<%= currentUser.plan %>">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<%- include('partials/footer.ejs') %>
+
+
+<script>
+    function previewFile() {
+   var preview = document.getElementById('profile-image1');
+   var file    = document.querySelector('input[type=file]').files[0];
+   var reader  = new FileReader();
+ 
+   reader.addEventListener("load", function () {
+     preview.src = reader.result;
+   }, false);
+ 
+   if (file) {
+     reader.readAsDataURL(file);
+   }
+ }
+                       $(function() {
+             $('#profile-image1').on('click', function() {
+                 $('#profile-image-upload').click();
+             });
+         });
+ </script>

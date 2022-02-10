@@ -1,0 +1,46 @@
+<%- include('partials/headerAdmin.ejs') %>
+
+<!-- <%- include('layout.ejs') %> -->
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<div class="card col-8 shadow" id="card2">
+  <div class="container">
+    <div class="card-body">
+      <div class="container">
+        <h4 class="card-title text-uppercase">Edit Artist</h4>  
+        <form class="row g-3" action="/admin/editArtist/<%= artist._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+          <div class="d-flex">
+            <div class="row col-6">
+            <div class="col-12">
+              <label for="inputAddress" class="form-label"><strong>Artist's Name</strong></label>
+              <input type="text" class="form-control" name="updateArtist[artist]" placeholder="<%= artist.artist %>" value="<%= artist.artist %>">
+            </div>
+            <div class="col-12 pt-3">
+                <label for="formFile" class="form-label"><strong>Artist's Image</strong></label>
+                <input type="file" class="form-control px-3 py-2" name="imageArtist" accept="image/*">
+                <img src="<%= artist.imageArtist %>" width="100px" class="mt-2">
+            </div>
+            
+            </div>
+          </div>
+
+            <div class="text-center">
+                <a aria-current="page" href="/soulcast"><button type="submit" class="btn-signup col-3 mt-3 shadow-sm" style="background-color: #1fc58e; color: rgb(17, 19, 18);">EDIT ARTIST</button></a>
+            </div>
+        </form>
+      </div>
+    </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('input[type="checkbox"]').click(function() {
+          var inputValue = $(this).attr("value");
+          $("." + inputValue).toggle();
+      });
+  });
+</script>
+
+<%- include('partials/footerAdmin.ejs') %>

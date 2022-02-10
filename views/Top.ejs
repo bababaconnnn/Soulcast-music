@@ -1,0 +1,122 @@
+<%- include('partials/header.ejs') %>
+
+<link href="https://unpkg.com/pattern.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/bce85edea6.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<%- include('layout.ejs') %>
+
+<div class="container">
+    <div class="text-center" style="margin-top: 30px;">
+        <img class="img-fluid col-11" src="https://i.pinimg.com/originals/ce/ab/a8/ceaba8c91b53ba31156307edcf491e29.png">
+    </div>
+</div>
+<div class="container pb-5">
+    <div class="col-11 d-flex justify-content-center mx-auto">
+        <div class="col-5 pt-4" id='all-songs'>
+            
+            <h1 class="title-search text-uppercase col">TOP Songs</h1>
+
+            <div id='js-list'>
+            <% song.forEach(function(song){ %>
+            <div class="pt-4 song-search searchable" data-name='<%=song.name %>' data-view='<%=song.listen %>' data-view2='<%=song.listen %>'>
+            <div class="all-s shadow search-box">
+                <div class="d-flex block col-12">
+                    <img src="<%= song.image %>" class="img-fluid rounded me-2 shadow-lg" width="11%" height="11%">
+            
+                    <div class="d-flex align-items-center col-11">
+                        <div class="desc col-9">
+                            <strong class="text-gray-dark name-song song-name"><%= song.name %></strong>
+                            <span class="d-block name-artist"><%= song.artist %></span>
+                        </div>
+                        <div class="position-relative col-3">
+                            <div class="d-flex flex-row-reverse position-relative">
+                                <div class="position-absolute top-50 end-0 translate-middle-y d-flex">
+                                    <div class="p-2 mt-1 d-flex">
+                                        <i class="fad fa-headphones-alt pe-2 pt-1"></i><p><%= song.listen %></p>
+                                    </div>
+                                    <div class="heart2 p-2">
+                                        <% var i = 0; %>
+                                        <% if(currentUser.favorite == ''){ %>
+                                            <form action="/soulcast/play/fav/<%= currentUser._id %>" method="POST">
+                                                <input name="fav" value="<%= song._id %>" hidden>
+                                                <div class="heart">
+                                                    <button type="submit" class="bg-transparent border-0 none-click"><i class="fas fa-heart favorite active" aria-hidden="true" style="color: #30303044;"></i></button>
+                                                </div>
+                                            </form>
+                                        <% } else { %>
+                                            <% currentUser.favorite.forEach(function(fav){ %>
+                                                <% if(fav.equals(song._id)){ %>
+                                                    <% i++; %>    
+                                                <% } %>
+                                            <% }); %>
+                                            <% if(i>0){%>
+                                                <form action="/soulcast/play/fav/delete/<%= currentUser._id %>" method="POST">
+                                                    <input name="delete" value="<%= song._id %>" hidden>
+                                                    <div class="heart">
+                                                        <button type="submit" class="bg-transparent border-0 none-click"><i class="fas fa-heart favorite active" aria-hidden="true" style="color: #920606;"></i></button>
+                                                    </div>
+                                                </form>
+                                            <% } else{ %>
+                                                <form action="/soulcast/play/fav/<%= currentUser._id %>" method="POST">
+                                                    <input name="fav" value="<%= song._id %>" hidden>
+                                                    <div class="heart">
+                                                        <button type="submit" class="bg-transparent border-0 none-click"><i class="fas fa-heart favorite active" aria-hidden="true" style="color: #30303044;"></i></button>
+                                                    </div>
+                                                </form>
+                                            <% } %>
+                                        <% } %>
+                                    </div>
+                                    <div class="p-2 pe-4">
+                                        <a href="/soulcast/play/<%= song._id %>"><button type="button" class="btn btn-sm btn-outline-secondary pp2 col-12 search-play shadow">PLAY</button></a> 
+                                    </div>
+                                    <% if(currentUser.plan === 'Soulcast Premium'){ %>
+                                        <div class="menu-dropdown active position-relativeps-3">
+                                            <div class="btn-group dropup position-absolute top-50 translate-middle">
+                                                <button type="button" class="border-0 bg-transparent dropdown-toggle dropdown-toggle-menu none-click shadow-none outline-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class='fas fa-ellipsis-v down position-absolute top-50 end-0 translate-middle-y'></i>
+                                                </button>   
+                                                <ul class="dropdown-menu list-function">
+                                                    <li><a class="dropdown-item py-2" href="<%= song.songs %>" download><i class="fas fa-download pe-2"></i>Download Song</a></li>
+                                                    <li><a class="dropdown-item py-2" href="#"><i class="fad fa-share-alt pe-2"></i>Share Song</a></li>
+                                                </ul>
+                                            </div>  
+                                        </div>
+                                        <% } %>                                                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <% }); %>
+            </div>
+        </div>
+        <div class="ps-4 pt-4 pb-4 col-6 ms-4 col-7" id='all-artists'>
+            <h1 class="title-search text-uppercase">TOP Artists</h1>
+            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-md-3 g-4 pt-4 ">
+            <% artist.forEach(function(artist){ %>
+                <div class="col song-search2">
+                    <div class="shadow col-12 card-artist">
+                        <div class="card-body">
+                            <a href="/soulcast/artist/<%= artist.artist %>"><img class="pics-song img-fluid shadow" src="<%= artist.imageArtist %>" width="120%"></a>
+                            <div class="desc-song">
+                                <div>
+                                    <p class="card-text songs song-artist"><%= artist.artist %></p>
+                                </div>
+                                <div class="position-relative col-12">
+                                    <p class="follower"><i class="fas fa-users pe-2"></i><%= artist.follower %></p> 
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('footer.ejs') %>
+
+<%- include('partials/footer.ejs') %>
