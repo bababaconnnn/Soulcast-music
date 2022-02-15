@@ -6,7 +6,8 @@ Open http://localhost:3000 to view it in the browser.
 # Preview
 Welcomr and Home pages
 
-<img src='https://user-images.githubusercontent.com/77714343/153963178-04b3a6a9-0eae-4a91-a78f-5b41ff9aa138.png' align="top" width="500"> <img src='https://user-images.githubusercontent.com/77714343/153968040-ad26f21a-7f27-47bc-ac0c-6abd4cee9400.jpeg' width="500">
+<img src='https://user-images.githubusercontent.com/77714343/153963178-04b3a6a9-0eae-4a91-a78f-5b41ff9aa138.png' align="top" width="500"> 
+<img src='https://user-images.githubusercontent.com/77714343/153968040-ad26f21a-7f27-47bc-ac0c-6abd4cee9400.jpeg' width="500">
 
 Search page
 
